@@ -4,7 +4,7 @@
 # 	- Unix (Linux Tested)
 # 	- Windows (Using MinGW)
 
-CFLAGS= -O2 -std=c99 -g -Wall -Wextra -fwrapv -fPIC -pedantic -I. -Wmissing-prototypes
+CFLAGS= -O2 -std=c99 -g -Wall -Wextra -fwrapv -fPIC -pedantic -I. -Wmissing-prototypes 
 CC=gcc
 EXE=
 DF=
@@ -41,15 +41,15 @@ all: ${FORTH}
 
 embed.o: embed.c embed.h
 
-util.o: util.c util.h
+embed_util.o: embed_util.c embed_util.h
 
-lib${TARGET}.a: ${TARGET}.o image.o
+lib${TARGET}.a: ${TARGET}.o embed_util.o image.o
 	${AR} ${ARFLAGS} $@ $^
 
-lib${TARGET}.so: ${TARGET}.o image.o
+lib${TARGET}.so: ${TARGET}.o embed_util.o image.o
 	${CC} -shared -o $@ $^
 
-${FORTH}: main.o util.o lib${TARGET}.a 
+${FORTH}: embed_main.o embed_util.o lib${TARGET}.a 
 	${CC} $^ ${LDFLAGS} -o $@
 
 ### New Image Creation (renamed core.gen.c to image.c) ####################### 
@@ -60,7 +60,7 @@ b2c.blk: ${TARGET} b2c.fth embed-1.blk
 core.gen.c: embed b2c.blk 
 	./$< -i b2c.blk -I embed-1.blk -O $@
 
-### Meta Compilation ######################################################### 
+### Meta Compilation ################################################ 
 
 ${META1}: ${FORTH} embed.fth
 	${DF}${FORTH} -o ${META1} embed.fth
@@ -119,23 +119,23 @@ dist: lib${TARGET}.so lib${TARGET}.a ${TARGET}.pdf embed.1 ${FORTH} ${TARGET}.h 
 ### Test Applications ######################################################## 
 
 unix: CFLAGS=-O2 -Wall -Wextra -std=gnu99 -I.
-unix: t/unix.c util.o libembed.a
+unix: t/unix.c embed_util.o libembed.a
 	${CC} ${CFLAGS} $^ -o $@
 
 win: CFLAGS=-Wall -Wextra -std=gnu99 -I.
-win: t/win.c util.o libembed.a
+win: t/win.c embed_util.o libembed.a
 	${CC} ${CFLAGS} $^ -o $@
 
 call: CFLAGS=-O2 -Wall -Wextra -std=c99 -I.
-call: t/call.c util.o libembed.a
+call: t/call.c embed_util.o libembed.a
 	${CC} ${CFLAGS} $^ -lm -o $@
 
 mmu: CFLAGS=-O2 -Wall -Wextra -std=c99 -I.
-mmu: t/mmu.c util.o libembed.a 
+mmu: t/mmu.c embed_util.o libembed.a 
 	${CC} ${CFLAGS} $^ -o $@
 
 rom: CFLAGS=-O2 -Wall -Wextra -std=c99 -I. -g
-rom: t/rom.c util.o libembed.a 
+rom: t/rom.c embed_util.o libembed.a 
 	${CC} ${CFLAGS} $^ -o $@
 
 apps: ${TESTAPPS}
