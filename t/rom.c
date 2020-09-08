@@ -7,7 +7,7 @@
  */
 
 #include "embed.h"
-#include "util.h"
+#include "embed_util.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdbool.h>

@@ -45,7 +45,7 @@
  *    3.443000e+00 */
 
 #include "embed.h"
-#include "util.h"
+#include "embed_util.h"
 #include <errno.h>
 #include <stdbool.h>
 #include <assert.h>
@@ -60,6 +60,7 @@ typedef struct vm_extension_t vm_extension_t;
 
 typedef float vm_float_t;
 typedef int32_t sdc_t;   /**< signed double cell type */
+//typedef int64_t sdc_t;   /**< signed double cell type */
 
 typedef int (*embed_callback_extended_t)(vm_extension_t *v);
 typedef struct {

@@ -15,7 +15,7 @@
  * MinGW. */
 
 #include "embed.h"
-#include "util.h"
+#include "embed_util.h"
 #include <assert.h>
 #include <conio.h>
 #include <errno.h>

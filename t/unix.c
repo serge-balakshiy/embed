@@ -31,7 +31,7 @@
  * between 'raw' and 'cooked' modes. */
 
 #include "embed.h"
-#include "util.h"
+#include "embed_util.h"
 
 #define _POSIX_C_SOURCE 200809L
 #include <assert.h>

@@ -10,7 +10,7 @@
  * for creating a memory map that would allow sections of memory to be placed
  * into Read Only Memory (ROM) to save on space.  */
 
-#include "util.h"
+#include "embed_util.h"
 #include "embed.h"
 #include <stdint.h>
 #include <inttypes.h>
