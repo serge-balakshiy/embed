@@ -24,3 +24,5 @@ rom
 unit
 unix
 vgcore.*
+.deps/
+.dirstamp
